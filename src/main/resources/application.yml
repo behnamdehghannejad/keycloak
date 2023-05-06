@@ -1,0 +1,32 @@
+server:
+  port: 2525
+
+#=================>  for spring security 3 <=======================
+variable:
+  KEYCLOAK_URL: http://localhost:2020
+  KEYCLOAK_REALM: hasan
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${variable.KEYCLOAK_URL}/realms/${variable.KEYCLOAK_REALM}/protocol/openid-connect/certs
+          issuer-uri: ${variable.KEYCLOAK_URL}/realms/${variable.KEYCLOAK_REALM}
+
+
+#=================>  for spring security 2 <=======================
+
+#keycloak:
+#  realm: hasan
+#  auth-server-url: http://localhost:2020/*
+#  resource: hasan-client
+#  public-client: true
+#  bearer-only: true
+#  ssl-required:
+#  credentials:
+#    secret:
+#  use-resource-role-mappings: true
