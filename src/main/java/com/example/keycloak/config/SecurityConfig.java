@@ -1,5 +1,6 @@
 package com.example.keycloak.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Component;
 @Component
 class SecurityConfig  {
 
+    @Value("${keycloak.client.scope}")
+    private String clientScope;
 
     @Bean
     protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
@@ -27,7 +30,7 @@ class SecurityConfig  {
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
         grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
-        grantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
+        grantedAuthoritiesConverter.setAuthoritiesClaimName(clientScope);
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
         return jwtAuthenticationConverter;
@@ -43,7 +46,7 @@ class SecurityConfig  {
                 .requestMatchers("/admin/**").hasRole( "admin")
 //                .requestMatchers("/maker/**").hasRole("maker")
 //                .requestMatchers("/taker/**").hasRole("taker")
-                .requestMatchers("/member/**").authenticated()
+//                .requestMatchers("/login/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .sessionManagement()

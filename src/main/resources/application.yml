@@ -18,6 +18,15 @@ spring:
           issuer-uri: ${variable.KEYCLOAK_URL}/realms/${variable.KEYCLOAK_REALM}
 
 
+keycloak:
+  client:
+    id: hasan-client
+    secret: ZKIaAu02GX8kQHJFUAncODUTdFQjuBoS
+    scope: roles
+  link:
+    login: ${variable.KEYCLOAK_URL}/realms/${variable.KEYCLOAK_REALM}/protocol/openid-connect/token
+
+
 #=================>  for spring security 2 <=======================
 
 #keycloak:
