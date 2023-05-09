@@ -4,7 +4,7 @@ server:
 #=================>  for spring security 3 <=======================
 variable:
   KEYCLOAK_URL: http://localhost:2020
-  KEYCLOAK_REALM: hasan
+  KEYCLOAK_REALM: my-Realm
 
 spring:
   mvc:
@@ -20,8 +20,8 @@ spring:
 
 keycloak:
   client:
-    id: hasan-client
-    secret: ZKIaAu02GX8kQHJFUAncODUTdFQjuBoS
+    id: my-client
+    secret: PyKF4Ume7O1TuZl3kMPyNHc05XwKOGXx
     scope: roles
   link:
     login: ${variable.KEYCLOAK_URL}/realms/${variable.KEYCLOAK_REALM}/protocol/openid-connect/token

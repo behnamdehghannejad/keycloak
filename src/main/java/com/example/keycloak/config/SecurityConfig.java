@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.session.NullAuthenticated
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.stereotype.Component;
 
-@EnableMethodSecurity
+@EnableMethodSecurity(jsr250Enabled = true)
 @EnableWebSecurity
 @Component
 class SecurityConfig  {
@@ -43,7 +43,13 @@ class SecurityConfig  {
                 csrf().disable().
                 authorizeHttpRequests()
                 .requestMatchers("/public/**", "/swagger-ui/**", "/v3/api-docs/**", "/hook/**", "/**/swagger.json").permitAll()
-                .requestMatchers("/admin/**").hasRole( "admin")
+                /**
+                 * can use
+                 * @EnableMethodSecurity to control rest endpoints like commented example below
+                 * or can use
+                 * @EnableMethodSecurity(jsr250Enabled = true) and introduce access role to the endpoint by @RolesAllowed("admin")
+                 */
+//                .requestMatchers("/admin/**").hasRole( "admin")
 //                .requestMatchers("/maker/**").hasRole("maker")
 //                .requestMatchers("/taker/**").hasRole("taker")
 //                .requestMatchers("/login/**").authenticated()
